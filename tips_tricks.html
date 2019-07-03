@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Error codes &mdash; grid-control  documentation</title>
+  <title>Tips &amp; tricks &mdash; grid-control  documentation</title>
   
 
   
@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Tips &amp; tricks" href="tips_tricks.html" /> 
+    <link rel="next" title="Error codes" href="error_codes.html" />
+    <link rel="prev" title="Getting started" href="getting_started.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,11 +96,11 @@
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#first-configuration-run-jobs-on-the-local-machine">First configuration (run jobs on the local machine)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tips_tricks.html">Tips &amp; tricks</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tips_tricks.html#gnu-screen">GNU Screen</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tips &amp; tricks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gnu-screen">GNU Screen</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Error codes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="error_codes.html">Error codes</a></li>
 </ul>
 
             
@@ -145,13 +146,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Error codes</li>
+      <li>Tips &amp; tricks</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/error_codes.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/tips_tricks.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -164,28 +165,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="error-codes">
-<h1>Error codes<a class="headerlink" href="#error-codes" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>100 - unspecified error
-
-101 - file not found
-102 - directory not found
-103 - executable not found
-104 - variable not found
-
-105 - env unpacking failed
-106 - se copy error
-107 - killed by batch system
-108 - output invalid
-
-120 - lower space limit reached
-121 - upper space limit reached
-122 - min size failure
-
-123 - user intervention requested
-
-&gt;125 - reserved by POSIX
-</pre></div>
+  <div class="section" id="tips-tricks">
+<h1>Tips &amp; tricks<a class="headerlink" href="#tips-tricks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="gnu-screen">
+<h2>GNU Screen<a class="headerlink" href="#gnu-screen" title="Permalink to this headline">¶</a></h2>
+<p>You might find it useful to run grid-control in a <a class="reference external" href="https://www.gnu.org/software/screen/">GNU Screen</a> session (see also <a class="reference external" href="https://en.wikipedia.org/wiki/GNU_Screen">Wikipedia</a>) if you use ssh to connect to a submit host.
+This allows you to detach the screen session and disconnect your ssh connection, while grid-control keeps running on the host and further updates and (re)submits jobs. Also, you can reconnect to this session when ssh-ing to the host from a different machine (e.g. from your office and from home).</p>
 </div>
 </div>
 
@@ -197,8 +182,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="error_codes.html" class="btn btn-neutral float-right" title="Error codes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="tips_tricks.html" class="btn btn-neutral float-left" title="Tips &amp; tricks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
