@@ -94,6 +94,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#first-configuration-run-jobs-on-the-local-machine">First configuration (run jobs on the local machine)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#further-examples">Further examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tips_tricks.html">Tips &amp; tricks</a><ul>
@@ -169,11 +170,11 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#requirements" id="id1">Requirements</a></li>
-<li><a class="reference internal" href="#installation-from-pypi-pip" id="id2">Installation from PyPI (<code class="docutils literal notranslate"><span class="pre">pip</span></code>)</a></li>
-<li><a class="reference internal" href="#clone-from-git" id="id3">Clone from git</a><ul>
-<li><a class="reference internal" href="#switch-to-a-different-branch" id="id4">Switch to a different branch</a></li>
-<li><a class="reference internal" href="#pull-remote-changes" id="id5">Pull remote changes</a></li>
+<li><a class="reference internal" href="#requirements" id="id2">Requirements</a></li>
+<li><a class="reference internal" href="#installation-from-pypi-pip" id="id3">Installation from PyPI (<code class="docutils literal notranslate"><span class="pre">pip</span></code>)</a></li>
+<li><a class="reference internal" href="#clone-from-git" id="id4">Clone from git</a><ul>
+<li><a class="reference internal" href="#switch-to-a-different-branch" id="id5">Switch to a different branch</a></li>
+<li><a class="reference internal" href="#pull-remote-changes" id="id6">Pull remote changes</a></li>
 </ul>
 </li>
 </ul>
@@ -196,13 +197,14 @@
 </div>
 <div class="section" id="installation-from-pypi-pip">
 <h2>Installation from PyPI (<code class="docutils literal notranslate"><span class="pre">pip</span></code>)<a class="headerlink" href="#installation-from-pypi-pip" title="Permalink to this headline">¶</a></h2>
+<p><strong>Note</strong>: <em>Since the PyPI release is rather outdated at the moment, we recommend</em> <a class="reference internal" href="#clone-from-git"><span class="std std-ref">cloning from git</span></a>.</p>
 <div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install --user grid-control
 </pre></div>
 </div>
 <p>This installs the default <code class="docutils literal notranslate"><span class="pre">go.py</span></code> executable. In addition the executalbe <code class="docutils literal notranslate"><span class="pre">gridcontrol</span></code> is provided, because of the more descriptive name.</p>
 </div>
 <div class="section" id="clone-from-git">
-<h2>Clone from git<a class="headerlink" href="#clone-from-git" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>Clone from git<a class="headerlink" href="#clone-from-git" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> whereever you check out your projects
 <span class="gp">$</span> <span class="nb">cd</span> &lt;your project path&gt;
 <span class="gp">$</span> git clone https://github.com/grid-control/grid-control.git
