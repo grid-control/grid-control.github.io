@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; grid-control  documentation</title>
+  <title>NAF specifics &mdash; grid-control  documentation</title>
   
 
   
@@ -25,7 +25,6 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
-        <script type="text/javascript" src="_static/searchtools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,7 +34,9 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tips &amp; tricks" href="tips_tricks.html" />
+    <link rel="prev" title="Getting started" href="getting_started.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -62,7 +63,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -80,7 +81,7 @@
             
             
               <p class="caption"><span class="caption-text">Contents</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-pypi-pip">Installation from PyPI (<code class="docutils literal notranslate"><span class="pre">pip</span></code>)</a></li>
@@ -96,8 +97,8 @@
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#further-examples">Further examples</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="NAF.html">NAF specifics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="NAF.html#central-installation">Central installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NAF specifics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#central-installation">Central installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tips_tricks.html">Tips &amp; tricks</a><ul>
@@ -151,12 +152,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Search</li>
+      <li>NAF specifics</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/NAF.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -168,24 +171,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="naf-specifics">
+<h1>NAF specifics<a class="headerlink" href="#naf-specifics" title="Permalink to this headline">¶</a></h1>
+<p>If you are a user of the National Analysis Facility (<a class="reference external" href="https://naf.desy.de">NAF</a>) and want to submit to the
+<a class="reference external" href="http://bird.desy.de">BIRD</a> batch farm, this page provides some specific instructions and features for you.</p>
+<div class="section" id="central-installation">
+<span id="naf-central-inst"></span><h2>Central installation<a class="headerlink" href="#central-installation" title="Permalink to this headline">¶</a></h2>
+<p>You don’t need to install grid-control on your own, if you’re a NAF user. We provide a central installation (actually different versions) using the usual environment module system:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> module avail grid-control
 
-  
-  <div id="search-results">
-  
-  </div>
+<span class="go">--------------- /afs/desy.de/group/cms/modulefiles/ ---------------</span>
+<span class="go">grid-control/current(default) grid-control/testing</span>
+<span class="go">grid-control/previous</span>
+
+<span class="gp">$</span> module load grid-control/current
+</pre></div>
+</div>
+<p>The default version is <code class="docutils literal notranslate"><span class="pre">current</span></code>, which is the general recommendation. Whenever <code class="docutils literal notranslate"><span class="pre">current</span></code> is updated, the last version will be made available as <code class="docutils literal notranslate"><span class="pre">previous</span></code> for the case that you rely on that specific version for some time still (e.g. for existing tasks).
+If you need a newer version containing recent changes, you can use the <code class="docutils literal notranslate"><span class="pre">testing</span></code> version.</p>
+<p>After you loaded the module (you might want to do this in your <code class="file docutils literal notranslate"><span class="pre">.[bash|zsh|*]rc</span></code> file), you can use the <code class="docutils literal notranslate"><span class="pre">grid-control</span></code> executable.</p>
+</div>
+</div>
+
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tips_tricks.html" class="btn btn-neutral float-right" title="Tips &amp; tricks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -218,14 +239,7 @@
   
   
     
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>

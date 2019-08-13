@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Error codes" href="error_codes.html" />
-    <link rel="prev" title="Getting started" href="getting_started.html" /> 
+    <link rel="prev" title="NAF specifics" href="NAF.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,10 +94,16 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#first-configuration-run-jobs-on-the-local-machine">First configuration (run jobs on the local machine)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#further-examples">Further examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NAF.html">NAF specifics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NAF.html#central-installation">Central installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tips &amp; tricks</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#gnu-screen">GNU Screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#global-configuration">Global configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="error_codes.html">Error codes</a></li>
@@ -167,10 +173,24 @@
             
   <div class="section" id="tips-tricks">
 <h1>Tips &amp; tricks<a class="headerlink" href="#tips-tricks" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#gnu-screen" id="id2">GNU Screen</a></li>
+<li><a class="reference internal" href="#global-configuration" id="id3">Global configuration</a></li>
+</ul>
+</div>
 <div class="section" id="gnu-screen">
 <h2>GNU Screen<a class="headerlink" href="#gnu-screen" title="Permalink to this headline">¶</a></h2>
 <p>You might find it useful to run grid-control in a <a class="reference external" href="https://www.gnu.org/software/screen/">GNU Screen</a> session (see also <a class="reference external" href="https://en.wikipedia.org/wiki/GNU_Screen">Wikipedia</a>) if you use ssh to connect to a submit host.
 This allows you to detach the screen session and disconnect your ssh connection, while grid-control keeps running on the host and further updates and (re)submits jobs. Also, you can reconnect to this session when ssh-ing to the host from a different machine (e.g. from your office and from home).</p>
+</div>
+<div class="section" id="global-configuration">
+<h2>Global configuration<a class="headerlink" href="#global-configuration" title="Permalink to this headline">¶</a></h2>
+<p>~/.grid-control.conf</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[global]</span>
+<span class="na">workdir create</span><span class="o">=</span> <span class="s">True ; don&#39;t ask if workdir should be created</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -185,7 +205,7 @@ This allows you to detach the screen session and disconnect your ssh connection,
         <a href="error_codes.html" class="btn btn-neutral float-right" title="Error codes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="NAF.html" class="btn btn-neutral float-left" title="NAF specifics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
