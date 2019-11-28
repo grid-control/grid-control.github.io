@@ -99,6 +99,7 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">NAF specifics</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#central-installation">Central installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submitting-to-centos7-nodes">Submitting to CentOS7 nodes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tips_tricks.html">Tips &amp; tricks</a><ul>
@@ -175,6 +176,12 @@
 <h1>NAF specifics<a class="headerlink" href="#naf-specifics" title="Permalink to this headline">¶</a></h1>
 <p>If you are a user of the National Analysis Facility (<a class="reference external" href="https://naf.desy.de">NAF</a>) and want to submit to the
 <a class="reference external" href="http://bird.desy.de">BIRD</a> batch farm, this page provides some specific instructions and features for you.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#central-installation" id="id1">Central installation</a></li>
+<li><a class="reference internal" href="#submitting-to-centos7-nodes" id="id2">Submitting to CentOS7 nodes</a></li>
+</ul>
+</div>
 <div class="section" id="central-installation">
 <span id="naf-central-inst"></span><h2>Central installation<a class="headerlink" href="#central-installation" title="Permalink to this headline">¶</a></h2>
 <p>You don’t need to install grid-control on your own, if you’re a NAF user. We provide a central installation (actually different versions) using the usual environment module system:</p>
@@ -190,6 +197,21 @@
 <p>The default version is <code class="docutils literal notranslate"><span class="pre">current</span></code>, which is the general recommendation. Whenever <code class="docutils literal notranslate"><span class="pre">current</span></code> is updated, the last version will be made available as <code class="docutils literal notranslate"><span class="pre">previous</span></code> for the case that you rely on that specific version for some time still (e.g. for existing tasks).
 If you need a newer version containing recent changes, you can use the <code class="docutils literal notranslate"><span class="pre">testing</span></code> version.</p>
 <p>After you loaded the module (you might want to do this in your <code class="file docutils literal notranslate"><span class="pre">.[bash|zsh|*]rc</span></code> file), you can use the <code class="docutils literal notranslate"><span class="pre">grid-control</span></code> executable.</p>
+</div>
+<div class="section" id="submitting-to-centos7-nodes">
+<h2>Submitting to CentOS7 nodes<a class="headerlink" href="#submitting-to-centos7-nodes" title="Permalink to this headline">¶</a></h2>
+<p>At the moment (end of 2019), the batch system default is to submit to EL6 (= Scientific Linux 6, SL6) nodes only
+if you submit from a EL6 workgroup server. This behaviour can be altered in grid-control using <code class="docutils literal notranslate"><span class="pre">user</span> <span class="pre">requirements</span></code>.</p>
+<p>To submit to EL7 (= CentOS7) worker nodes only, use</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[condor]</span>
+<span class="na">user requirements</span> <span class="o">=</span> <span class="s">( OpSysAndVer == &quot;CentOS7&quot;)</span>
+</pre></div>
+</div>
+<p>To allow the jobs to run on the EL6 <em>and</em> EL7 nodes, use</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[condor]</span>
+<span class="na">user requirements</span> <span class="o">=</span> <span class="s">( OpSysAndVer == &quot;CentOS7&quot; || OpSysAndVer == &quot;SL6&quot;)</span>
+</pre></div>
+</div>
 </div>
 </div>
 
