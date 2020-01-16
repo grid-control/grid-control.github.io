@@ -99,7 +99,11 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">NAF specifics</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#central-installation">Central installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backend">Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#selecting-the-accounting-group-project">Selecting the accounting group / project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#submitting-to-centos7-nodes">Submitting to CentOS7 nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-entries-in-condor-submit-file">Custom entries in condor submit file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#singularity-virtualization">Singularity (Virtualization)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tips_tricks.html">Tips &amp; tricks</a><ul>
@@ -179,7 +183,11 @@
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><a class="reference internal" href="#central-installation" id="id1">Central installation</a></li>
-<li><a class="reference internal" href="#submitting-to-centos7-nodes" id="id2">Submitting to CentOS7 nodes</a></li>
+<li><a class="reference internal" href="#backend" id="id2">Backend</a></li>
+<li><a class="reference internal" href="#selecting-the-accounting-group-project" id="id3">Selecting the accounting group / project</a></li>
+<li><a class="reference internal" href="#submitting-to-centos7-nodes" id="id4">Submitting to CentOS7 nodes</a></li>
+<li><a class="reference internal" href="#custom-entries-in-condor-submit-file" id="id5">Custom entries in condor submit file</a></li>
+<li><a class="reference internal" href="#singularity-virtualization" id="id6">Singularity (Virtualization)</a></li>
 </ul>
 </div>
 <div class="section" id="central-installation">
@@ -198,18 +206,75 @@
 If you need a newer version containing recent changes, you can use the <code class="docutils literal notranslate"><span class="pre">testing</span></code> version.</p>
 <p>After you loaded the module (you might want to do this in your <code class="file docutils literal notranslate"><span class="pre">.[bash|zsh|*]rc</span></code> file), you can use the <code class="docutils literal notranslate"><span class="pre">grid-control</span></code> executable.</p>
 </div>
+<div class="section" id="backend">
+<h2>Backend<a class="headerlink" href="#backend" title="Permalink to this headline">¶</a></h2>
+<p>On the NAF, the HTCondor batch system is used. This is detected automatically, if you specify that a local backend should be used:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[global]</span>
+<span class="na">backend</span> <span class="o">=</span> <span class="s">local</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selecting-the-accounting-group-project">
+<h2>Selecting the accounting group / project<a class="headerlink" href="#selecting-the-accounting-group-project" title="Permalink to this headline">¶</a></h2>
+<p>You can explicitly choose the accounting group used in HTCondor if you are a member of several projects, e.g <code class="docutils literal notranslate"><span class="pre">af-cms</span></code>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[condor]</span>
+<span class="na">naf project</span> <span class="o">=</span> <span class="s">af-cms</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="submitting-to-centos7-nodes">
 <h2>Submitting to CentOS7 nodes<a class="headerlink" href="#submitting-to-centos7-nodes" title="Permalink to this headline">¶</a></h2>
 <p>At the moment (end of 2019), the batch system default is to submit to EL6 (= Scientific Linux 6, SL6) nodes only
 if you submit from a EL6 workgroup server. This behaviour can be altered in grid-control using <code class="docutils literal notranslate"><span class="pre">user</span> <span class="pre">requirements</span></code>.</p>
 <p>To submit to EL7 (= CentOS7) worker nodes only, use</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[condor]</span>
-<span class="na">user requirements</span> <span class="o">=</span> <span class="s">( OpSysAndVer == &quot;CentOS7&quot;)</span>
+<span class="na">user requirements</span> <span class="o">=</span> <span class="s">( OpSysAndVer == &quot;CentOS7&quot; )</span>
 </pre></div>
 </div>
-<p>To allow the jobs to run on the EL6 <em>and</em> EL7 nodes, use</p>
+<p>To submit to EL6 worker nodes only, use</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[condor]</span>
-<span class="na">user requirements</span> <span class="o">=</span> <span class="s">( OpSysAndVer == &quot;CentOS7&quot; || OpSysAndVer == &quot;SL6&quot;)</span>
+<span class="na">user requirements</span> <span class="o">=</span> <span class="s">( OpSysAndVer == &quot;SL6&quot; )</span>
+</pre></div>
+</div>
+<p>To allow the jobs to run on EL6 <em>and</em> EL7 nodes, use</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[condor]</span>
+<span class="na">user requirements</span> <span class="o">=</span> <span class="s">( OpSysAndVer == &quot;CentOS7&quot; || OpSysAndVer == &quot;SL6&quot; )</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-entries-in-condor-submit-file">
+<h2>Custom entries in condor submit file<a class="headerlink" href="#custom-entries-in-condor-submit-file" title="Permalink to this headline">¶</a></h2>
+<p>You can add custom entries to the submission file used for condor:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[condor]</span>
+<span class="na">jdldata</span> <span class="o">=</span><span class="s"></span>
+<span class="s">      +MyProject=&quot;xyz&quot;</span>
+<span class="s">      +MyCustomAttribute=12</span>
+</pre></div>
+</div>
+<p>Make sure that you don’t use whitespaces in the attributes, because they are interpreted as list separators!</p>
+</div>
+<div class="section" id="singularity-virtualization">
+<h2>Singularity (Virtualization)<a class="headerlink" href="#singularity-virtualization" title="Permalink to this headline">¶</a></h2>
+<p>To run EL6 jobs on EL7 worker nodes in a
+<a class="reference external" href="https://confluence.desy.de/display/IS/Containers">container environment</a>,
+<a class="reference external" href="https://confluence.desy.de/display/IS/Singularity">singularity</a>
+can be used
+<a class="reference external" href="https://confluence.desy.de/display/IS/Singularity+support+in+BIRD">within the batch system</a>.</p>
+<p>If you already have a working image, you can use that.
+Otherwise, store an image to DUST (not afs!), e.g. with</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> mkdir /nfs/dust/cms/user/<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>/singularity
+<span class="gp">$</span> <span class="nv">SINGULARITY_CACHEDIR</span><span class="o">=</span><span class="s2">&quot;/nfs/dust/cms/user/</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">/singularity&quot;</span> singularity pull /nfs/dust/cms/user/<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>/singularity/slc6_latest.sif docker://cmssw/slc6:latest
+<span class="go">INFO:    Converting OCI blobs to SIF format</span>
+<span class="go">INFO:    Starting build...</span>
+<span class="go">Getting image source signatures</span>
+<span class="go">[... working ...]</span>
+</pre></div>
+</div>
+<p>This will take a few seconds to minutes, but you’ll only have to do it once.</p>
+<p>In the grid-control config, set the corresponding attributes:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[condor]</span>
+<span class="na">user requirements</span> <span class="o">=</span> <span class="s">( OpSysAndVer == &quot;CentOS7&quot; )</span>
+<span class="na">jdl data</span> <span class="o">=</span> <span class="s">+MySingularityImage=&quot;/nfs/dust/cms/user/&lt;user&gt;/singularity/slc6_latest.sif&quot;</span>
 </pre></div>
 </div>
 </div>

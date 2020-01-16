@@ -31,6 +31,26 @@ If you need a newer version containing recent changes, you can use the ``testing
 After you loaded the module (you might want to do this in your :file:`.[bash|zsh|*]rc` file), you can use the ``grid-control`` executable.
 
 
+Backend
+-------
+On the NAF, the HTCondor batch system is used. This is detected automatically, if you specify that a local backend should be used:
+
+.. code-block:: ini
+
+   [global]
+   backend = local
+
+Selecting the accounting group / project
+----------------------------------------
+
+You can explicitly choose the accounting group used in HTCondor if you are a member of several projects, e.g ``af-cms``:
+
+.. code-block:: ini
+
+   [condor]
+   naf project = af-cms
+
+
 Submitting to CentOS7 nodes
 ---------------------------
 
@@ -42,13 +62,67 @@ To submit to EL7 (= CentOS7) worker nodes only, use
 .. code-block:: ini
 
    [condor]
-   user requirements = ( OpSysAndVer == "CentOS7")
+   user requirements = ( OpSysAndVer == "CentOS7" )
 
-
-To allow the jobs to run on the EL6 *and* EL7 nodes, use
+To submit to EL6 worker nodes only, use
 
 .. code-block:: ini
 
    [condor]
-   user requirements = ( OpSysAndVer == "CentOS7" || OpSysAndVer == "SL6")
+   user requirements = ( OpSysAndVer == "SL6" )
+
+
+To allow the jobs to run on EL6 *and* EL7 nodes, use
+
+.. code-block:: ini
+
+   [condor]
+   user requirements = ( OpSysAndVer == "CentOS7" || OpSysAndVer == "SL6" )
+
+
+Custom entries in condor submit file
+------------------------------------
+
+You can add custom entries to the submission file used for condor:
+
+.. code-block:: ini
+
+   [condor]
+   jdldata =
+         +MyProject="xyz"
+         +MyCustomAttribute=12
+
+Make sure that you don't use whitespaces in the attributes, because they are interpreted as list separators!
+
+
+Singularity (Virtualization)
+----------------------------
+
+To run EL6 jobs on EL7 worker nodes in a
+`container environment <https://confluence.desy.de/display/IS/Containers>`_,
+`singularity <https://confluence.desy.de/display/IS/Singularity>`_
+can be used
+`within the batch system <https://confluence.desy.de/display/IS/Singularity+support+in+BIRD>`_.
+
+If you already have a working image, you can use that.
+Otherwise, store an image to DUST (not afs!), e.g. with
+
+.. code-block:: shell-session
+
+   $ mkdir /nfs/dust/cms/user/${USER}/singularity
+   $ SINGULARITY_CACHEDIR="/nfs/dust/cms/user/${USER}/singularity" singularity pull /nfs/dust/cms/user/${USER}/singularity/slc6_latest.sif docker://cmssw/slc6:latest 
+   INFO:    Converting OCI blobs to SIF format
+   INFO:    Starting build...
+   Getting image source signatures
+   [... working ...]
+
+This will take a few seconds to minutes, but you'll only have to do it once.
+
+In the grid-control config, set the corresponding attributes:
+
+.. code-block:: ini
+
+   [condor]
+   user requirements = ( OpSysAndVer == "CentOS7" )
+   jdl data = +MySingularityImage="/nfs/dust/cms/user/<user>/singularity/slc6_latest.sif"
 
