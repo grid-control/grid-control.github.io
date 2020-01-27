@@ -23,11 +23,11 @@ You don't need to install grid-control on your own, if you're a NAF user. We pro
    grid-control/current(default) grid-control/testing
    grid-control/previous
 
-   $ module load grid-control/current 
+   $ module load grid-control/current
 
 The default version is ``current``, which is the general recommendation. Whenever ``current`` is updated, the last version will be made available as ``previous`` for the case that you rely on that specific version for some time still (e.g. for existing tasks).
 If you need a newer version containing recent changes, you can use the ``testing`` version.
-   
+
 After you loaded the module (you might want to do this in your :file:`.[bash|zsh|*]rc` file), you can use the ``grid-control`` executable.
 
 
@@ -39,16 +39,6 @@ On the NAF, the HTCondor batch system is used. This is detected automatically, i
 
    [global]
    backend = local
-
-Selecting the accounting group / project
-----------------------------------------
-
-You can explicitly choose the accounting group used in HTCondor if you are a member of several projects, e.g ``af-cms``:
-
-.. code-block:: ini
-
-   [condor]
-   naf project = af-cms
 
 
 Submitting to CentOS7 nodes
@@ -110,7 +100,7 @@ Otherwise, store an image to DUST (not afs!), e.g. with
 .. code-block:: shell-session
 
    $ mkdir /nfs/dust/cms/user/${USER}/singularity
-   $ SINGULARITY_CACHEDIR="/nfs/dust/cms/user/${USER}/singularity" singularity pull /nfs/dust/cms/user/${USER}/singularity/slc6_latest.sif docker://cmssw/slc6:latest 
+   $ SINGULARITY_CACHEDIR="/nfs/dust/cms/user/${USER}/singularity" singularity pull /nfs/dust/cms/user/${USER}/singularity/slc6_latest.sif docker://cmssw/slc6:latest
    INFO:    Converting OCI blobs to SIF format
    INFO:    Starting build...
    Getting image source signatures
@@ -126,3 +116,22 @@ In the grid-control config, set the corresponding attributes:
    user requirements = ( OpSysAndVer == "CentOS7" )
    jdl data = +MySingularityImage="/nfs/dust/cms/user/<user>/singularity/slc6_latest.sif"
 
+
+Use a VOMS proxy
+----------------
+
+If your jobs need a VOMS proxy token, the easiest way is to place it on a shared file system, i.e. AFS.
+For this, set the environment variable ``X509_USER_PROXY``, e.g. in your :file:`.[bash|zsh|*]rc` file:
+
+.. code-block:: shell-session
+
+   export X509_USER_PROXY=/afs/desy.de/user/<U>/<USER>/private/x509_voms
+
+After this is set, create your new proxy (``voms-proxy-init``).
+
+In the grid-control config, add
+
+.. code-block:: ini
+
+   [backend]
+   proxy = VomsProxy

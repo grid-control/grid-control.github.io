@@ -100,10 +100,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">NAF specifics</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#central-installation">Central installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#backend">Backend</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#selecting-the-accounting-group-project">Selecting the accounting group / project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#submitting-to-centos7-nodes">Submitting to CentOS7 nodes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-entries-in-condor-submit-file">Custom entries in condor submit file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#singularity-virtualization">Singularity (Virtualization)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-a-voms-proxy">Use a VOMS proxy</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tips_tricks.html">Tips &amp; tricks</a><ul>
@@ -184,10 +184,10 @@
 <ul class="simple">
 <li><a class="reference internal" href="#central-installation" id="id1">Central installation</a></li>
 <li><a class="reference internal" href="#backend" id="id2">Backend</a></li>
-<li><a class="reference internal" href="#selecting-the-accounting-group-project" id="id3">Selecting the accounting group / project</a></li>
-<li><a class="reference internal" href="#submitting-to-centos7-nodes" id="id4">Submitting to CentOS7 nodes</a></li>
-<li><a class="reference internal" href="#custom-entries-in-condor-submit-file" id="id5">Custom entries in condor submit file</a></li>
-<li><a class="reference internal" href="#singularity-virtualization" id="id6">Singularity (Virtualization)</a></li>
+<li><a class="reference internal" href="#submitting-to-centos7-nodes" id="id3">Submitting to CentOS7 nodes</a></li>
+<li><a class="reference internal" href="#custom-entries-in-condor-submit-file" id="id4">Custom entries in condor submit file</a></li>
+<li><a class="reference internal" href="#singularity-virtualization" id="id5">Singularity (Virtualization)</a></li>
+<li><a class="reference internal" href="#use-a-voms-proxy" id="id6">Use a VOMS proxy</a></li>
 </ul>
 </div>
 <div class="section" id="central-installation">
@@ -211,14 +211,6 @@ If you need a newer version containing recent changes, you can use the <code cla
 <p>On the NAF, the HTCondor batch system is used. This is detected automatically, if you specify that a local backend should be used:</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[global]</span>
 <span class="na">backend</span> <span class="o">=</span> <span class="s">local</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="selecting-the-accounting-group-project">
-<h2>Selecting the accounting group / project<a class="headerlink" href="#selecting-the-accounting-group-project" title="Permalink to this headline">¶</a></h2>
-<p>You can explicitly choose the accounting group used in HTCondor if you are a member of several projects, e.g <code class="docutils literal notranslate"><span class="pre">af-cms</span></code>:</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[condor]</span>
-<span class="na">naf project</span> <span class="o">=</span> <span class="s">af-cms</span>
 </pre></div>
 </div>
 </div>
@@ -275,6 +267,20 @@ Otherwise, store an image to DUST (not afs!), e.g. with</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[condor]</span>
 <span class="na">user requirements</span> <span class="o">=</span> <span class="s">( OpSysAndVer == &quot;CentOS7&quot; )</span>
 <span class="na">jdl data</span> <span class="o">=</span> <span class="s">+MySingularityImage=&quot;/nfs/dust/cms/user/&lt;user&gt;/singularity/slc6_latest.sif&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-a-voms-proxy">
+<h2>Use a VOMS proxy<a class="headerlink" href="#use-a-voms-proxy" title="Permalink to this headline">¶</a></h2>
+<p>If your jobs need a VOMS proxy token, the easiest way is to place it on a shared file system, i.e. AFS.
+For this, set the environment variable <code class="docutils literal notranslate"><span class="pre">X509_USER_PROXY</span></code>, e.g. in your <code class="file docutils literal notranslate"><span class="pre">.[bash|zsh|*]rc</span></code> file:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">export X509_USER_PROXY=/afs/desy.de/user/&lt;U&gt;/&lt;USER&gt;/private/x509_voms</span>
+</pre></div>
+</div>
+<p>After this is set, create your new proxy (<code class="docutils literal notranslate"><span class="pre">voms-proxy-init</span></code>).</p>
+<p>In the grid-control config, add</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[backend]</span>
+<span class="na">proxy</span> <span class="o">=</span> <span class="s">VomsProxy</span>
 </pre></div>
 </div>
 </div>
